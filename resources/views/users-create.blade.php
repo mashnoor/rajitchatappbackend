@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <form role="form" class="form-horizontal" action='{{ action('HomeController@user_create') }}' method="POST">
+                    <form role="form" class="form-horizontal" action='{{ action('HomeController@user_create') }}' method="POST" enctype="multipart/form-data">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                       {{-- <input type="hidden" name="parent_id" value=""> --}}
@@ -42,6 +42,11 @@
                           <div class="col-sm-9">
                               <input type="text" class="form-control" placeholder="Sector" name="sector" value=""> </div>
                       </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Picture</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control" name="photo" value=""></div>
+                        </div>
                       <div class="form-group">
                           <label for="inputPassword3" class="col-sm-3 control-label">Password*</label>
                           <div class="col-sm-9">

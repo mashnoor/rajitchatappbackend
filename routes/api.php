@@ -19,3 +19,7 @@ Route::post('signup', 'UserController@signup');
 Route::get('users', 'UserController@getallusers');
 
 Route::post('login', 'UserController@login');
+
+Route::get('getphoto/{name}', 'UserController@getphoto');
+
+Route::get('getitems', 'UserController@getItems');

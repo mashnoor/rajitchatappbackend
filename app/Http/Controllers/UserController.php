@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
 use App\User;
+
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -15,8 +19,7 @@ class UserController extends Controller
         $designation = $request->input('user_designation', '');
         $user_id = $request->input('user_id_no', '');
         $user_phone = $request->input('user_phone');
-        if(User::where('phone', '=', $user_phone)->first()!=null)
-        {
+        if (User::where('phone', '=', $user_phone)->first() != null) {
             return "exists";
         }
         $user = new User();
@@ -29,23 +32,34 @@ class UserController extends Controller
         $user->save();
         return $user;
     }
+
     public function login(Request $request)
     {
         $userPhone = $request->input('user_phone', '');
         $password = $request->input('user_password', '');
         $user = User::where('phone', '=', $userPhone)->where('password', '=', $password)->first();
-        if($user == null)
-        {
+        if ($user == null) {
             return "failed";
-        }
-        else
-        {
+        } else {
             return $user;
         }
+    }
+
+    public function getphoto($name)
+    {
+        $storagePath = Storage::get('photos/'. $name);
+       // return $storagePath;
+
+        return response($storagePath, 200)->header('Content-Type', 'image/jpeg');
     }
 
     public function getallusers()
     {
         return User::all();
+    }
+
+    public function getItems()
+    {
+        return Item::all();
     }
 }

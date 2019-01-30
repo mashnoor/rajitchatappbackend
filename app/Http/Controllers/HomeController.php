@@ -29,6 +29,27 @@ class HomeController extends Controller
     public function user_create(Request $request) {
 
         if(Input::get('password') == Input::get('retype_password')) {
+
+            $path = "";
+            if($request->hasFile('photo'))
+            {
+                $file = $request->file('photo');
+
+
+                // generate a new filename. getClientOriginalExtension() for the file extension
+                $filename = 'profile-photo-' . time() . '.' . $file->getClientOriginalExtension();
+
+                // save to storage/app/photos as the new $filename
+                $file->storeAs('photos', $filename);
+
+
+                $path = "http://139.162.34.55/api/getphoto/" . $filename;
+            }
+
+
+
+
+
             $createUser = [
                 'name' => Input::get('name'),
                 'sector' => Input::get('sector'),
@@ -36,6 +57,7 @@ class HomeController extends Controller
                 'id_no' => Input::get('id_no'),
                 'phone' => Input::get('phone'),
                 'password' => Input::get('password'),
+                'imageurl' => $path,
             ];
 
             $response = User::create($createUser);
