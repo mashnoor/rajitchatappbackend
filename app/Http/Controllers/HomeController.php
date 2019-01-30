@@ -43,7 +43,7 @@ class HomeController extends Controller
                 $file->storeAs('photos', $filename);
 
 
-                $path = "http://139.162.34.55/api/getphoto/" . $filename;
+                $path = "http://139.162.34.55:5009/api/getphoto/" . $filename;
             }
 
 
