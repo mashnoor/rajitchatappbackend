@@ -16,7 +16,7 @@ class HomeController extends Controller
     }
 
     public function index()
-    {        
+    {
         return view('home');
     }
 
@@ -26,13 +26,13 @@ class HomeController extends Controller
         return view('users')->with('users', $users);
     }
 
-    public function user_create(Request $request) {
+    public function user_create(Request $request)
+    {
 
-        if(Input::get('password') == Input::get('retype_password')) {
+        if (Input::get('password') == Input::get('retype_password')) {
 
             $path = "";
-            if($request->hasFile('photo'))
-            {
+            if ($request->hasFile('photo')) {
                 $file = $request->file('photo');
 
 
@@ -47,9 +47,6 @@ class HomeController extends Controller
             }
 
 
-
-
-
             $createUser = [
                 'name' => Input::get('name'),
                 'sector' => Input::get('sector'),
@@ -62,15 +59,16 @@ class HomeController extends Controller
 
             $response = User::create($createUser);
 
-            if($response) {
-                return redirect()->back()->with('success','User created!');
+            if ($response) {
+                return redirect()->back()->with('success', 'User created!');
             }
         } else {
-            return redirect()->back()->with('fail','Password mismatch!');
+            return redirect()->back()->with('fail', 'Password mismatch!');
         }
     }
 
-    public function user_update(Request $request, $userid) {
+    public function user_update(Request $request, $userid)
+    {
 
         $updateUser = [
             'name' => Input::get('name'),
@@ -82,26 +80,29 @@ class HomeController extends Controller
 
         $response = User::where('id', $userid)->update($updateUser);
 
-        if($response) {
-            return redirect()->back()->with('success','User info updated!');
+        if ($response) {
+            return redirect()->back()->with('success', 'User info updated!');
         }
     }
 
-    public function user_delete($userid) {
+    public function user_delete($userid)
+    {
 
         $response = User::where('id', $userid)->delete();
 
-        if($response) {
-            return redirect()->back()->with('fail','User deleted!');
+        if ($response) {
+            return redirect()->back()->with('fail', 'User deleted!');
         }
     }
 
-    public function item_index() {
+    public function item_index()
+    {
         $items = Item::orderBy('id', 'desc')->get();
         return view('items')->with('items', $items);
     }
 
-    public function item_create(Request $request) {
+    public function item_create(Request $request)
+    {
 
         $createItem = [
             'heading' => Input::get('heading'),
@@ -111,12 +112,13 @@ class HomeController extends Controller
 
         $response = Item::create($createItem);
 
-        if($response) {
-            return redirect()->back()->with('success','Item created!');
+        if ($response) {
+            return redirect()->back()->with('success', 'Item created!');
         }
     }
 
-    public function item_update(Request $request, $itemid) {
+    public function item_update(Request $request, $itemid)
+    {
 
         $updateItem = [
             'heading' => Input::get('heading'),
@@ -125,17 +127,18 @@ class HomeController extends Controller
 
         $response = Item::where('id', $itemid)->update($updateItem);
 
-        if($response) {
-            return redirect()->back()->with('success','Item updated!');
+        if ($response) {
+            return redirect()->back()->with('success', 'Item updated!');
         }
     }
 
-    public function item_delete($itemid) {
+    public function item_delete($itemid)
+    {
 
         $response = Item::where('id', $itemid)->delete();
 
-        if($response) {
-            return redirect()->back()->with('fail','Item deleted!');
+        if ($response) {
+            return redirect()->back()->with('fail', 'Item deleted!');
         }
     }
 }

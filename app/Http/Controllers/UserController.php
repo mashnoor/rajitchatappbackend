@@ -55,7 +55,7 @@ class UserController extends Controller
 
     public function getallusers()
     {
-        return User::all();
+        return User::orderBy('priority')->get();
     }
 
     public function getItems()
