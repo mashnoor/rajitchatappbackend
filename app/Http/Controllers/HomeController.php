@@ -25,9 +25,31 @@ class HomeController extends Controller
         $users = User::all();
         return view('users')->with('users', $users);
     }
+    function contains($needle, $haystack)
+    {
+        return strpos($haystack, $needle) !== false;
+    }
 
     public function user_create(Request $request)
     {
+        $des = Input::get('designation');
+        $priority = -1;
+        if($this->contains("General Manager", $des))
+        {
+            $priority = 2;
+        }
+        else if($this->contains("DGN", $des))
+        {
+            $priority = 3;
+        }
+        else if($this->contains("Asst Manager", $des))
+        {
+            $priority = 5;
+        }
+        else if($this->contains("Manager", $des))
+        {
+            $priority = 4;
+        }
 
         if (Input::get('password') == Input::get('retype_password')) {
 
@@ -51,6 +73,7 @@ class HomeController extends Controller
                 'name' => Input::get('name'),
                 'sector' => Input::get('sector'),
                 'designation' => Input::get('designation'),
+                'priority' => $priority,
                 'id_no' => Input::get('id_no'),
                 'phone' => Input::get('phone'),
                 'password' => Input::get('password'),
