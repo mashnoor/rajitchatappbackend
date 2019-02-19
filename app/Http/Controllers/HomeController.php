@@ -38,7 +38,7 @@ class HomeController extends Controller
         {
             $priority = 2;
         }
-        else if($this->contains("DGN", $des))
+        else if($this->contains("DGM", $des))
         {
             $priority = 3;
         }
